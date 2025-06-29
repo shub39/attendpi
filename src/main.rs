@@ -8,13 +8,7 @@ fn main() {
     let address: u32 = 0xFFFFFFFF;
     let password: u32 = 0x00000000;
 
-    let sensor = FingerprintSensor::new(
-        baud_rate,
-        address,
-        password
-    );
-
-    let mut fingerprint = match sensor {
+    let mut fingerprint_sensor = match FingerprintSensor::new(baud_rate, address, password) {
         Ok(sensor) => sensor,
         Err(e) => {
             println!("Error initialising {}", e);
@@ -22,12 +16,6 @@ fn main() {
         }
     };
     
-    match fingerprint.verify_password() {
-        Ok(info) => {
-            println!("{:?}", info);
-        }
-        Err(err) => {
-            println!("{}", err);
-        }
-    }
+    let system_parameters = fingerprint_sensor.get_system_parameters().ok();
+    dbg!(system_parameters);
 }
