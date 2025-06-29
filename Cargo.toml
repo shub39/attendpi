@@ -6,3 +6,4 @@ edition = "2024"
 [dependencies]
 serialport = "4.7.2"
 thiserror = "2.0.12"
+rppal = "0.22.1"
