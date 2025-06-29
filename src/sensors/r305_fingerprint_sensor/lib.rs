@@ -1,5 +1,5 @@
-use crate::sensors::r305::error::FingerprintError;
-use crate::sensors::r305::protocol::*;
+use crate::sensors::r305_fingerprint_sensor::error::FingerprintError;
+use crate::sensors::r305_fingerprint_sensor::protocol::*;
 
 use serialport::{self, DataBits, ErrorKind, FlowControl, Parity, SerialPort, StopBits};
 use std::io::{self, Read, Write};

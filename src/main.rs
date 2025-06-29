@@ -1,9 +1,11 @@
 mod sensors;
 
-use sensors::r305::lib::FingerprintSensor;
+use crate::sensors::keypad::Keypad;
+use sensors::r305_fingerprint_sensor::lib::FingerprintSensor;
+use sensors::ssd1305_display::SSD1305Display;
 
 fn main() {
-    println!("Testing r305");
+    println!("Testing r305_fingerprint_sensor");
     let baud_rate: u32 = 57600;
     let address: u32 = 0xFFFFFFFF;
     let password: u32 = 0x00000000;
@@ -15,7 +17,18 @@ fn main() {
             return;
         }
     };
-    
-    let system_parameters = fingerprint_sensor.get_system_parameters().ok();
-    dbg!(system_parameters);
+
+    let mut keypad = Keypad::new();
+
+    let mut display = match SSD1305Display::new() {
+        Ok(display) => display,
+        Err(e) => {
+            println!("Error Initialising display");
+            return;
+        }
+    };
+
+    display.draw(
+        vec!["Hello World", "I'm shub39", "Serial Masochist"]
+    );
 }

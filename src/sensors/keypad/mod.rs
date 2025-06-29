@@ -32,7 +32,10 @@ impl Keypad {
             input
         });
 
-        Keypad { rows, cols }
+        let keypad = Keypad { rows, cols };
+        keypad.log("Keypad Initialised", false);
+
+        keypad
     }
 
     pub fn read_key(&mut self) -> Option<char> {
@@ -43,6 +46,7 @@ impl Keypad {
             for (j, col) in self.cols.iter().enumerate() {
                 if col.read() == Level::High {
                     row.set_low();
+                    self.log(&format!("Key pressed: {}", KEYS[i][j]), false);
                     return Some(KEYS[i][j]);
                 }
             }
@@ -51,5 +55,9 @@ impl Keypad {
         }
 
         None
+    }
+
+    fn log(&self, message: &str, warning: bool) {
+        println!("{} Keypad: {}", if warning { "[WARNING]" } else { "[INFO]" }, message);
     }
 }
