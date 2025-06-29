@@ -1,6 +1,6 @@
-mod r305;
+mod sensors;
 
-use r305::lib::FingerprintSensor;
+use sensors::r305::lib::FingerprintSensor;
 
 fn main() {
     println!("Testing r305");
@@ -18,4 +18,32 @@ fn main() {
     
     let system_parameters = fingerprint_sensor.get_system_parameters().ok();
     dbg!(system_parameters);
+    dbg!(fingerprint_sensor.delete_all().unwrap());
+
+    for id in 1..5 {
+        match fingerprint_sensor.enroll(id) {
+            Ok(_) => {
+                println!("Fingerprint enrolled");
+            }
+            Err(_) => {
+                println!("Error enrolling fingerprint.");
+            }
+        }
+    }
+
+    for id in 1..5 {
+        std::thread::sleep(std::time::Duration::from_secs(1));
+        println!("Searching for fingerprints...");
+        match fingerprint_sensor.search() {
+            Ok(id) => {
+                match id {
+                    None => { println!("No matching fingerprint found"); }
+                    Some(roll) => { println!("Roll: {}", roll); }
+                }
+            }
+            Err(_) => {
+                println!("Error searching fingerprint. Retrying...");
+            }
+        }
+    }
 }
