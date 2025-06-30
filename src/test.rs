@@ -79,4 +79,6 @@ pub fn test(
             Err(_) => {}
         }
     }
+
+    display.cleanup();
 }

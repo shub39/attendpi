@@ -61,6 +61,12 @@ impl SSD1305Display {
         self.device.flush().unwrap();
     }
 
+    pub fn cleanup(&mut self) {
+        self.device.clear(BinaryColor::Off).unwrap();
+        self.device.flush().unwrap();
+        self.log("Cleaned up the screen", false);
+    }
+
     fn log(&self, message: &str, warning: bool) {
         println!(
             "{} Display: {}",
