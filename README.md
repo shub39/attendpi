@@ -47,10 +47,15 @@ The next day I decided to tackle the display stuff. Couldn't find a crate to han
 wrote a script to handle that but the display was rendering funky. It would always skip every other
 row of pixels in the default 128x32 configuration.
 
+![](pics/1.jpg)
+
 I spent way too long trying to figure out what's going wrong. In other display configurations, it would
 fill all pixels but with repeating text and inconsistencies. Eventually I gave up on it and settled with
 a hacky solution suggested by AI, skipping every other row of pixels while rendering in 128x64.
 still it would incorrectly render some pixels at the edge of the display. Ended day 2
+
+![](pics/2.jpg)
+![](pics/3.jpg)
 
 Day 3 and I started working on getting the Keypad working. It was fairly simple using the `rppal`
 crate. Got a working struct for it too and it was working as expected. Till now I was very impressed
